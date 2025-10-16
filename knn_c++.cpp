@@ -40,6 +40,8 @@ int main() {
     
     std::cout << "recalcualting centroids" << std::endl;
     calcNewCentroids(points, centerPoints, kNum);
+    std::cout << "Final centroids" << std::endl;
+    centerPoints.print();
 
 
     return 0;
@@ -114,8 +116,11 @@ void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
             }
 
         }
+        // Doing the mean
         sumVec /= rowCounter;
+        // Removing the last column since it is the group number
         sumVec = sumVec.subvec(0, colNums - 2);
         sumVec.print();
+        centroids.row(k) = sumVec;
     }
 }
