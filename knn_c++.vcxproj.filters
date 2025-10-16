@@ -18,5 +18,11 @@
     <ClCompile Include="knn_c++.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="kmeans.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kmeans.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -125,6 +125,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="kmeans.cpp" />
+    <ClCompile Include="kmeans.h" />
     <ClCompile Include="knn_c++.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Shayan\vcpkg\packages\armadillo\include</AdditionalIncludeDirectories>
     </ClCompile>
