@@ -11,6 +11,7 @@ knn steps:
 #include <armadillo>
 #include <cmath>
 #include "kmeans.h"
+#include "kmeanspp.h"
 
 
 
@@ -19,7 +20,7 @@ int main() {
     // define the points
     arma::mat points(1000, 2, arma::fill::randu);
     int scaleFactor = 50;
-    int kNum = 5;
+    int kNum = 6;
     int myCounter{ 0 };
     arma::colvec zeroCol(points.n_rows, arma::fill::zeros);
 
@@ -30,15 +31,20 @@ int main() {
     scaleStandard(points);
     points.brief_print();
 
-    // Choose the centerpoints
-    arma::mat centerPoints = defInitCenterPoints(points, kNum);
+    // Choose the centerpoints - kmeans initialization
+    //arma::mat centerPoints = defInitCenterPoints(points, kNum);
+
+    // Choose the centerpoints - kmeans++ initialization
+    arma::mat centerPoints = InitCenterKpp(points, kNum);
 
     //add a columns for group number
     points.insert_cols(points.n_cols, zeroCol);
     
     std::cout << "First center points: " << std::endl;
     centerPoints.print();
-    for (int counter{0}; counter<200; ++counter){
+    std::cout << "-------------------" << std::endl;
+
+    for (int counter{0}; counter<20; ++counter){
     
         //std::cout << "Before Calculating distance total" << std::endl;
         calcDistanceTotal(points, centerPoints);
@@ -48,7 +54,7 @@ int main() {
         //std::cout << "recalcualting centroids" << std::endl;
         calcNewCentroids(points, centerPoints, kNum);
         //std::cout << "Final centroids" << std::endl;
-        //centerPoints.print();
+        centerPoints.print();
         std::cout << "-----------" << std::endl;
 
         // Check to sse how much we have improved

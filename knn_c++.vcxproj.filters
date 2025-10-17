@@ -24,5 +24,13 @@
     <ClCompile Include="kmeans.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="kmeanspp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kmeanspp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

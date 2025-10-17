@@ -82,19 +82,26 @@ void calcDistanceTotal(arma::mat& initPoints, arma::mat centers) {
 
 void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
 
+    // Number of columns - SInce we have and extra column for the KGroup
     double colNums = pointMat.n_cols;
 
     // For each group start getting the mean values
     for (int k{ 0 }; k < knum; ++k) {
+        // Define a vector for keeping the sums and mean
         arma::rowvec sumVec(colNums, arma::fill::zeros);
-        int rowCounter{ 0 };
+        
+        // We define the row counter at 11 so that we don't get any Division by zeros later
+        int rowCounter{ 1 };
 
         for (int i{ 0 }; i < pointMat.n_rows; ++i) {
             double groupNum = pointMat.row(i)[colNums - 1];
 
             if (groupNum == k) {
+                // summin gup all the values for each point to get the mean
                 sumVec += pointMat.row(i);
-                ++rowCounter;
+                if (i != 0) {
+                    ++rowCounter;
+                }
             }
 
         }
@@ -102,7 +109,7 @@ void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
         sumVec /= rowCounter;
         // Removing the last column since it is the group number
         sumVec = sumVec.subvec(0, colNums - 2);
-        sumVec.print();
+        //sumVec.print();
         centroids.row(k) = sumVec;
     }
 }
