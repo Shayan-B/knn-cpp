@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="knn_c++.cpp">
+    <ClCompile Include="kmeans_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="kmeans.cpp">

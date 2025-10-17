@@ -5,11 +5,16 @@
 
 
 
-arma::mat defInitCenterPoints(int knum, int scale_) {
+arma::mat defInitCenterPoints(arma::mat initpoints, int knum) {
 
-    //std::cout << "inside CenterPOints init" << std::endl;
-    arma::mat centerPoints(knum, 2, arma::fill::randu);
-    centerPoints *= scale_;
+
+    arma::mat centerPoints(knum, 2, arma::fill::zeros);
+    arma::rowvec chosNum(knum, arma::fill::randu);
+    chosNum *= initpoints.n_rows;
+    chosNum = arma::ceil(chosNum);
+    for (int i{ 0 }; i < knum; ++i) {
+        centerPoints.row(i) = initpoints.row(chosNum(i));
+    }
 
     return centerPoints;
 }

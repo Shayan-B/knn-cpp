@@ -24,7 +24,7 @@
     <ProjectGuid>{15a77d49-6c7b-42f4-9237-9bed814a4a84}</ProjectGuid>
     <RootNamespace>knnc</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>knn_cpp</ProjectName>
+    <ProjectName>kmeans_cpp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,7 +127,7 @@
   <ItemGroup>
     <ClCompile Include="kmeans.cpp" />
     <ClCompile Include="kmeans.h" />
-    <ClCompile Include="knn_c++.cpp">
+    <ClCompile Include="kmeans_main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Shayan\vcpkg\packages\armadillo\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemGroup>

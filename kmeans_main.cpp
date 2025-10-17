@@ -16,7 +16,7 @@ knn steps:
 
 
 int main() {
-    // define th epoints
+    // define the points
     arma::mat points(1000, 2, arma::fill::randu);
     int scaleFactor = 50;
     int kNum = 5;
@@ -25,13 +25,15 @@ int main() {
 
     // scale the points
     points *= scaleFactor;
+    // Choose the centerpoints
+    arma::mat centerPoints = defInitCenterPoints(points, kNum);
+
     //add a columns for group number
     points.insert_cols(points.n_cols, zeroCol);
-
-    arma::mat centerPoints = defInitCenterPoints(kNum, scaleFactor);
+    
     std::cout << "First center points: " << std::endl;
     centerPoints.print();
-    for (int counter{0}; counter<50; ++counter){
+    for (int counter{0}; counter<100; ++counter){
     
         //std::cout << "Before Calculating distance total" << std::endl;
         calcDistanceTotal(points, centerPoints);
