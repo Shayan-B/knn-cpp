@@ -82,3 +82,14 @@ void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
         centroids.row(k) = sumVec;
     }
 }
+
+bool checkErrImprove(arma::mat prevCenters, arma::mat curCenters) {
+    
+    prevCenters -= curCenters;
+    prevCenters = arma::abs(prevCenters);
+    
+    // Check to see all the elements have improved less than a specified amount
+    bool checkErr = arma::all(arma::vectorise(prevCenters) < 0.0001);
+    
+    return checkErr;
+}

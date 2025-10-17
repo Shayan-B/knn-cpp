@@ -19,7 +19,7 @@ int main() {
     // define th epoints
     arma::mat points(1000, 2, arma::fill::randu);
     int scaleFactor = 50;
-    int kNum = 10;
+    int kNum = 5;
     int myCounter{ 0 };
     arma::colvec zeroCol(points.n_rows, arma::fill::zeros);
 
@@ -33,15 +33,25 @@ int main() {
     centerPoints.print();
     for (int counter{0}; counter<50; ++counter){
     
-        std::cout << "Before Calculating distance total" << std::endl;
+        //std::cout << "Before Calculating distance total" << std::endl;
         calcDistanceTotal(points, centerPoints);
 
         //points.brief_print();
-    
-        std::cout << "recalcualting centroids" << std::endl;
+        arma::mat tempCenters = centerPoints;
+        //std::cout << "recalcualting centroids" << std::endl;
         calcNewCentroids(points, centerPoints, kNum);
-        std::cout << "Final centroids" << std::endl;
-        centerPoints.print();
+        //std::cout << "Final centroids" << std::endl;
+        //centerPoints.print();
+
+        // Check to sse how much we have improved
+        bool checkImprov = checkErrImprove(tempCenters, centerPoints);
+
+        if (checkImprov == true) {
+            std::cout << "after " << counter << " iterations We have reachedd a point that we are not improving anymore, quitting program." << std::endl;
+            std::cout << "The last center points are: " << std::endl;
+            centerPoints.print();
+            break;
+        }
 
     }
 
