@@ -25,6 +25,11 @@ int main() {
 
     // scale the points
     points *= scaleFactor;
+
+    // Apply Standard Scaler
+    scaleStandard(points);
+    points.brief_print();
+
     // Choose the centerpoints
     arma::mat centerPoints = defInitCenterPoints(points, kNum);
 
@@ -33,7 +38,7 @@ int main() {
     
     std::cout << "First center points: " << std::endl;
     centerPoints.print();
-    for (int counter{0}; counter<100; ++counter){
+    for (int counter{0}; counter<200; ++counter){
     
         //std::cout << "Before Calculating distance total" << std::endl;
         calcDistanceTotal(points, centerPoints);
@@ -44,6 +49,7 @@ int main() {
         calcNewCentroids(points, centerPoints, kNum);
         //std::cout << "Final centroids" << std::endl;
         //centerPoints.print();
+        std::cout << "-----------" << std::endl;
 
         // Check to sse how much we have improved
         bool checkImprov = checkErrImprove(tempCenters, centerPoints);
@@ -56,7 +62,6 @@ int main() {
         }
 
     }
-
     return 0;
 }
 

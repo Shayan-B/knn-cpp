@@ -1,5 +1,6 @@
 #include <armadillo>
 
+void scaleStandard(arma::mat& pointMat);
 arma::mat defInitCenterPoints(arma::mat initpoints, int knum);
 void calcDistanceTotal(arma::mat& initPoints, arma::mat centers);
 int calcPointDist(arma::vec point_1, arma::vec point_2);

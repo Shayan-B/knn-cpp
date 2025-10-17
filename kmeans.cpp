@@ -3,7 +3,26 @@
 #include <cmath>
 #include "kmeans.h"
 
+void scaleStandard(arma::mat& pointMat) {
+    
+    arma::mat tempPoints = pointMat;
+    arma::rowvec meanVec(2, arma::fill::zeros);
+    //arma::rowvec stdvec()
+    meanVec = arma::sum(pointMat, 0);
+    meanVec /= pointMat.n_rows;
 
+    for (int i{ 0 }; i < 2; ++i) {
+        tempPoints.col(i) = tempPoints.col(i) - meanVec(i);
+    }
+    tempPoints = arma::square(tempPoints);
+    arma::rowvec stdVec = arma::sum(tempPoints, 0);
+    stdVec /= pointMat.n_rows;
+    stdVec = arma::sqrt(stdVec);
+
+    for (int i{ 0 }; i < 2; ++i) {
+        pointMat.col(i) = (pointMat.col(i) - meanVec(i)) / stdVec(i);
+    }
+}
 
 arma::mat defInitCenterPoints(arma::mat initpoints, int knum) {
 
@@ -21,7 +40,7 @@ arma::mat defInitCenterPoints(arma::mat initpoints, int knum) {
 
 // Calculates the distance for each 2 points
 int calcPointDist(arma::rowvec point_1, arma::rowvec point_2) {
-    int sum{ 0 };
+    double sum{ 0 };
     //std::cout << "inside calcdistpoint" << std::endl;
 
     for (int z{ 0 }; z < point_1.size(); ++z) {
@@ -63,7 +82,7 @@ void calcDistanceTotal(arma::mat& initPoints, arma::mat centers) {
 
 void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
 
-    int colNums = pointMat.n_cols;
+    double colNums = pointMat.n_cols;
 
     // For each group start getting the mean values
     for (int k{ 0 }; k < knum; ++k) {
@@ -83,7 +102,7 @@ void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
         sumVec /= rowCounter;
         // Removing the last column since it is the group number
         sumVec = sumVec.subvec(0, colNums - 2);
-        //sumVec.print();
+        sumVec.print();
         centroids.row(k) = sumVec;
     }
 }
