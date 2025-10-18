@@ -110,7 +110,9 @@ void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
         // Removing the last column since it is the group number
         sumVec = sumVec.subvec(0, colNums - 2);
         //sumVec.print();
-        centroids.row(k) = sumVec;
+        if (!sumVec.is_zero()) {
+            centroids.row(k) = sumVec;
+        }
     }
 }
 
