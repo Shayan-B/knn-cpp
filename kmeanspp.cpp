@@ -26,20 +26,6 @@ arma::uword findMaxDist(arma::colvec dists_, arma::rowvec preCentersIdx) {
 	return maxDistIdx;
 }
 
-// Calculates the distance for each 2 points
-int calcPointDistpp(arma::rowvec point_1, arma::rowvec point_2) {
-	double sum{ 0 };
-	//std::cout << "inside calcdistpoint" << std::endl;
-
-	for (int z{ 0 }; z < point_1.size(); ++z) {
-		double diff = point_1[z] - point_2[z];
-		diff = pow(diff, 2);
-		sum += sqrt(diff);
-	}
-
-	return sum;
-}
-
 arma::mat InitCenterKpp(arma::mat pointMat, int knum) {
 	
 	arma::mat centers_(knum, 2, arma::fill::zeros);
@@ -54,7 +40,7 @@ arma::mat InitCenterKpp(arma::mat pointMat, int knum) {
 		arma::rowvec curCenter = centers_.row(k - 1);
 
 		for (int j{ 0 }; j < pointMat.n_rows; ++j) {
-			int dist = calcPointDistpp(curCenter, pointMat.row(j));
+			int dist = calcPointDist(curCenter, pointMat.row(j));
 			distVec(j) = dist;
 		}
 		arma::uword idxMax = findMaxDist(distVec, centerIdx);
