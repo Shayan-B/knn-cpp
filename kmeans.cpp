@@ -3,17 +3,22 @@
 #include <cmath>
 #include "kmeans.h"
 
+// Implementation of standard scaler
 void scaleStandard(arma::mat& pointMat) {
     
     arma::mat tempPoints = pointMat;
     arma::rowvec meanVec(2, arma::fill::zeros);
-    //arma::rowvec stdvec()
+   
+    // Sum of the points coordinates by column
     meanVec = arma::sum(pointMat, 0);
     meanVec /= pointMat.n_rows;
 
+    // Calculate the standard deviation
     for (int i{ 0 }; i < 2; ++i) {
         tempPoints.col(i) = tempPoints.col(i) - meanVec(i);
     }
+
+    // Element-wise square
     tempPoints = arma::square(tempPoints);
     arma::rowvec stdVec = arma::sum(tempPoints, 0);
     stdVec /= pointMat.n_rows;
@@ -24,13 +29,20 @@ void scaleStandard(arma::mat& pointMat) {
     }
 }
 
+// Define the centroids using the normal random initialization
 arma::mat defInitCenterPoints(arma::mat initpoints, int knum) {
 
 
     arma::mat centerPoints(knum, 2, arma::fill::zeros);
+    
+    // Create a random vector and scale it to the number of points to see which points have got chosen
     arma::rowvec chosNum(knum, arma::fill::randu);
     chosNum *= initpoints.n_rows;
+
+    // Round up the numbers to get whole numbers
     chosNum = arma::ceil(chosNum);
+    
+    // Fill in the data for chosen centers
     for (int i{ 0 }; i < knum; ++i) {
         centerPoints.row(i) = initpoints.row(chosNum(i));
     }
@@ -41,7 +53,7 @@ arma::mat defInitCenterPoints(arma::mat initpoints, int knum) {
 // Calculates the distance for each 2 points
 int calcPointDist(arma::rowvec point_1, arma::rowvec point_2) {
     double sum{ 0 };
-    //std::cout << "inside calcdistpoint" << std::endl;
+    
 
     for (int z{ 0 }; z < point_1.size(); ++z) {
         double diff = point_1[z] - point_2[z];
@@ -52,34 +64,31 @@ int calcPointDist(arma::rowvec point_1, arma::rowvec point_2) {
     return sum;
 }
 
-
+// Calculates the Total distances of all points an each centroid
 void calcDistanceTotal(arma::mat& initPoints, arma::mat centers) {
     arma::mat centerDist(initPoints.n_rows, centers.n_rows);
 
+    //center points for loop
     for (int i{ 0 }; i < centers.n_rows; ++i) {
-        //center points for loop
-
-        //std::cout << "Distance Total - FIrst loop" << std::endl;
         arma::rowvec curCenter(centers.row(i));
-        //curCenter.print();
+        
         for (int j{ 0 }; j < initPoints.n_rows; ++j) {
             centerDist(j, i) = calcPointDist(curCenter, initPoints.row(j));
         }
     }
-    //std::cout << "Center Distance:" << std::endl;
-    //centerDist.print();
 
-    // find the index of the minimum distance
+    // Find the index of the minimum distance
     arma::ucolvec dists = arma::index_min(centerDist, 1);
+    
     // Convert the data to a format to merge it with the rest of the data
     arma::colvec groupCols = arma::conv_to< arma::colvec >::from(dists);
-    //std::cout << "Min Groups: " << std::endl;
 
-    // Add the indeex of the minimum distance to the matrix
+    // Add the index of the minimum distance to the matrix
     initPoints.col(initPoints.n_cols - 1) = groupCols;
 
 }
 
+// Calculate the new centroids based on the groupings
 void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
 
     // Number of columns - SInce we have and extra column for the KGroup
@@ -105,11 +114,14 @@ void calcNewCentroids(arma::mat pointMat, arma::mat& centroids, int knum) {
             }
 
         }
+        
         // Doing the mean
         sumVec /= rowCounter;
+        
         // Removing the last column since it is the group number
         sumVec = sumVec.subvec(0, colNums - 2);
-        //sumVec.print();
+        
+        // This if prevents adding a zero coordinate for the centroids that have no subset
         if (!sumVec.is_zero()) {
             centroids.row(k) = sumVec;
         }
