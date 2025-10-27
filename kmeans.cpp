@@ -1,7 +1,8 @@
-#include <iostream>
 #include <armadillo>
-#include <cmath>
 #include "kmeans.h"
+
+import <cmath>;
+import <iostream>;
 
 // Implementation of standard scaler
 void scaleStandard(arma::mat& pointMat) {

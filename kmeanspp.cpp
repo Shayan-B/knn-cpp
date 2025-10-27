@@ -1,8 +1,9 @@
-#include <iostream>
 #include <armadillo>
 #include <random>
 #include "kmeanspp.h"
 #include "kmeans.h"
+
+import <iostream>;
 
 int genRndNum(int numRange) {
 	std::uniform_int_distribution<size_t> u(0, numRange);

@@ -1,9 +1,10 @@
-#include <iostream>
-#include <string>
 #include <armadillo>
-#include <cmath>
 #include "kmeans.h"
 #include "kmeanspp.h"
+
+import <cmath>;
+import <string>;
+import <iostream>;
 
 using std::string;
 
