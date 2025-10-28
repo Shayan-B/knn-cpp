@@ -18,18 +18,12 @@
     <ClCompile Include="kmeans_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="kmeans.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="kmeans.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="kmeanspp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="kmeanspp.h">
+    <ClInclude Include="include\kmeans.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kMeansBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

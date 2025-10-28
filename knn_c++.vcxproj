@@ -127,15 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="kmeans.cpp" />
-    <ClCompile Include="kmeans.h" />
-    <ClCompile Include="kmeanspp.cpp" />
     <ClCompile Include="kmeans_main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Shayan\vcpkg\packages\armadillo\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="kmeanspp.h" />
+    <ClInclude Include="include\kmeans.h" />
+    <ClInclude Include="include\kMeansBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
