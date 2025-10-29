@@ -1,9 +1,12 @@
 #include <armadillo>
 #include "kMeansBase.h"
 
+import <format>;
 
 
 class kMeans : public kMeansBase {
+    friend std::ostream& operator<<(std::ostream&, const kMeans&);
+
 public:
 	kMeans() = default;
     kMeans(int a) : kMeansBase(a){}
@@ -37,9 +40,19 @@ kMeans& kMeans::initCenterPts() {
 	return *this;
 }
 
+// A function to custom print the class
+// A function to custom print the class
+std::ostream& operator<<(std::ostream& os, const kMeans& kmn) {
+    os << "----------------------\n"
+        << std::format("Algorithm {}:\n", kmn.modelName);
+    os << static_cast<kMeansBase const&>(kmn) << "\n";
+    return os;
+}
 
 
 class kMeanspp : public kMeansBase {
+    friend std::ostream& operator<<(std::ostream&, const kMeanspp&);
+
 public:
     kMeanspp() = default;
     kMeanspp(int a) : kMeansBase(a) {}
@@ -106,4 +119,12 @@ int kMeanspp::genRndNum(int numRange) {
     std::default_random_engine e;
     int rndNum = u(e);
     return rndNum;
+}
+
+// A function to custom print the class
+std::ostream& operator<<(std::ostream& os, const kMeanspp& kmn) {
+    os << "----------------------\n"
+        << std::format("Algorithm {}:\n", kmn.modelName);
+    os << static_cast<kMeansBase const&>(kmn) << "\n";
+    return os;
 }

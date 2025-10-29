@@ -215,7 +215,7 @@ void kMeansBase::calcNewCentroids() {
 // A function to custom print the class
 std::ostream& operator<<(std::ostream& os, const kMeansBase& kmn) {
 	os << std::format("We have {} points with {} centers.\n", kmn.numPoints, kmn.kNum);
-	os << std::format("The Centroids location foudn by {} algorithm is as below:\n", kmn.modelName);
+	os << std::format("The Centroids location found by algorithm is as below:\n", kmn.modelName);
 	kmn.centerPoints.print();
 	return os;
 }
