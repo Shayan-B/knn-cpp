@@ -1,6 +1,8 @@
 import <iostream>;
 import <cmath>;
+import <string>;
 #include <armadillo>
+#include <format>
 
 class kMeansBase {
 	friend std::ostream& operator<<(std::ostream&, const kMeansBase&);
@@ -21,10 +23,12 @@ public:
 
 	kMeansBase& genPoints();
 
-	// Initialization of center points will be different in each of the child classes
+	// Initialization of center points - will be different in each of the child classes
 	virtual kMeansBase& initCenterPts();
 	kMeansBase& setNumK(int);
 	kMeansBase& calcDistanceTotal();
+
+	// Main function to call
 	kMeansBase& searchCenters();
 
 	// Utility Functions
@@ -35,6 +39,7 @@ public:
 	bool checkErrImprove(const arma::mat);
 
 protected:
+	std::string modelName{ "Base" };
 	int numPoints{ 0 };
 	int kNum{ 2 };
 	int scaleFactor{ 50 };
@@ -209,7 +214,9 @@ void kMeansBase::calcNewCentroids() {
 
 // A function to custom print the class
 std::ostream& operator<<(std::ostream& os, const kMeansBase& kmn) {
-	os << "Class is working";
+	os << std::format("We have {} points with {} centers.\n", kmn.numPoints, kmn.kNum);
+	os << std::format("The Centroids location foudn by {} algorithm is as below:\n", kmn.modelName);
+	kmn.centerPoints.print();
 	return os;
 }
 

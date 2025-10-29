@@ -132,7 +132,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\kmeans.h" />
+    <ClInclude Include="include\kMeans.h" />
     <ClInclude Include="include\kMeansBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
